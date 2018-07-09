@@ -1,0 +1,70 @@
+version: 0.1.{build}
+
+skip_non_tags: true
+
+cache:
+  - node_modules
+  - app\node_modules
+  - '%APPDATA%\npm-cache'
+  - '%USERPROFILE%\.electron'
+
+platform:
+  - x64
+
+init:
+  - git config --global core.autocrlf input
+  - set PATH=%GOROOT%\bin;%GOPATH%\bin;%PATH%
+  - set PATH=%PATH%;C:\msys64\mingw64\bin
+
+install:
+  - ps: Install-Product node 8 x64
+  - git reset --hard HEAD
+  - npm install npm -g
+  - go version
+  - go env
+  - python before_install.py
+  - go get -u github.com/golang/dep/cmd/dep
+  - cd %GOPATH%\\src\\github.com\\EXCCoin\\exccd
+  - dep ensure
+  - go install . ./cmd/exccctl/
+  - cd ../exccwallet
+  - dep ensure
+  - go install
+  - cd ../exilibrium
+  - mkdir bin
+  - cp %GOPATH%\\bin\\exccd.exe bin/exccd64.exe
+  - cp %GOPATH%\\bin\\exccctl.exe bin/exccctl64.exe
+  - cp %GOPATH%\\bin\\exccwallet.exe bin/exccwallet64.exe
+  - mkdir %APPVEYOR_BUILD_FOLDER%\\artifacts
+  - 7z a %APPVEYOR_BUILD_FOLDER%\artifacts\excc-binaries_win64_%date:~10,4%%date:~4,2%%date:~7,2%.zip bin/*
+  - yarn
+  - yarn package
+  - dir %GOPATH%\\src\\github.com\\EXCCoin\\exilibrium\\release\\
+  - copy %GOPATH%\src\github.com\EXCCoin\exilibrium\\release\*.exe %APPVEYOR_BUILD_FOLDER%\artifacts
+
+build_script:
+  - echo "Hooray!"
+
+test: off
+
+environment:
+  GOPATH: c:\gopath
+  GOROOT: C:\go
+
+artifacts:
+  - path: '.\artifacts\*.zip'
+    type: File
+    name: EXCCBinaries
+  - path: '.\artifacts\*.exe'
+    type: File
+    name: ExilibriumRelease
+
+deploy:
+  provider: GitHub
+  tag: $(APPVEYOR_REPO_TAG_NAME)
+  auth_token: '%GH_TOKEN%'
+  artifact: EXCCBinaries,ExilibriumRelease
+  draft: false
+  prerelease: false
+  on:
+    APPVEYOR_REPO_TAG: true   # deploy on tag push only
