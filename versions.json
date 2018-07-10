@@ -1,11 +1,11 @@
 {
   "exccdOwner": "EXCCoin",
   "exccdBranch": null,
-  "exccdCommit": "8820306d08fc43099ae34b0823609451d8fc8b20",
+  "exccdCommit": "acecc6e4cbd98e19a3bcbcc43486932e6df9da85",
   "exccwalletOwner": "EXCCoin",
   "exccwalletBranch": null,
-  "exccwalletCommit": "5a77b43dad6a7113ec3f44f34e8f6105c2a62114",
+  "exccwalletCommit": "bca71a2b2d9ff836e154168b116bd2be2f158a6c",
   "exilibriumOwner": "EXCCoin",
   "exilibriumBranch": null,
-  "exilibriumCommit": "4fcf445cbbd873f93083a5d917b095fd5228b6a6"
+  "exilibriumCommit": "cb689a8cc2c3a6549f09b5636bffffc186813f2a"
 }
