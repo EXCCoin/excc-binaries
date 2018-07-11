@@ -16,6 +16,7 @@ env:
 deploy:
   provider: releases
   api_key:
+    # GITHUB_OAUTH_TOKEN should be present in Travis Settings
     secure: $GITHUB_OAUTH_TOKEN
   file_glob: true
   file:
@@ -31,20 +32,28 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update       ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install yarn ; fi
   - go get -u github.com/golang/dep/cmd/dep
+  # Pull all repositories
   - python before_install.py
+  # Build exccd, exccctl and exccwallet
   - (cd $GOPATH/src/github.com/EXCCoin/exccd && dep ensure -v)
   - (cd $GOPATH/src/github.com/EXCCoin/exccwallet && dep ensure -v)
   - mkdir $GOPATH/src/github.com/EXCCoin/exilibrium/bin
   - (cd $GOPATH/src/github.com/EXCCoin/exilibrium/bin && go build -v github.com/EXCCoin/exccd)
   - (cd $GOPATH/src/github.com/EXCCoin/exilibrium/bin && go build -v github.com/EXCCoin/exccd/cmd/exccctl)
   - (cd $GOPATH/src/github.com/EXCCoin/exilibrium/bin && go build -v github.com/EXCCoin/exccwallet)
+  # Copy config files
+  - cp $GOPATH/src/github.com/EXCCoin/exccd/cmd/exccctl/sample-exccctl.conf $GOPATH/src/github.com/EXCCoin/exilibrium/bin/exccctl.conf
+  - cp $GOPATH/src/github.com/EXCCoin/exccwallet/sample-exccwallet.conf $GOPATH/src/github.com/EXCCoin/exilibrium/bin/exccwallet.conf
+  # Create excc-binaries archive
   - (cd $GOPATH/src/github.com/EXCCoin/exilibrium/bin && tar cvzf "excc-binaries_$(echo $TRAVIS_OS_NAME)_$(date +'%Y%m%d').tar.gz" *)
   - mv $GOPATH/src/github.com/EXCCoin/exilibrium/bin/*.tar.gz $TRAVIS_BUILD_DIR
+  # Update Node with nvm
   - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
+  # Build exilibrium
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then (cd $GOPATH/src/github.com/EXCCoin/exilibrium && yarn && yarn package-linux) ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then (cd $GOPATH/src/github.com/EXCCoin/exilibrium && yarn && yarn package) ; fi
   - cp $GOPATH/src/github.com/EXCCoin/exilibrium/release/*.* $TRAVIS_BUILD_DIR
   - (cd $TRAVIS_BUILD_DIR && echo $PWD && ls)
 
 script:
-  - echo "hooray!"
+  - echo "Hooray!"
