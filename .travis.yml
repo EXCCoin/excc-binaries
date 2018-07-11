@@ -20,6 +20,7 @@ deploy:
     secure: $GITHUB_OAUTH_TOKEN
   file_glob: true
   file:
+    - "./*.deb"
     - "./*.tar.gz"
     - "./*.dmg"
     - "./*.zip"
