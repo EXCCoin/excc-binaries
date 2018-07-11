@@ -22,8 +22,10 @@ install:
   - npm install npm -g
   - go version
   - go env
+  # Pull all repositories
   - python before_install.py
   - go get -u github.com/golang/dep/cmd/dep
+  # Build exccd, exccctl and exccwallet
   - cd %GOPATH%\\src\\github.com\\EXCCoin\\exccd
   - dep ensure
   - go install . ./cmd/exccctl/
@@ -31,12 +33,18 @@ install:
   - dep ensure
   - go install
   - cd ../exilibrium
+  # Copy binaries to exilibrium
   - mkdir bin
   - cp %GOPATH%\\bin\\exccd.exe bin/exccd64.exe
   - cp %GOPATH%\\bin\\exccctl.exe bin/exccctl64.exe
   - cp %GOPATH%\\bin\\exccwallet.exe bin/exccwallet64.exe
+  # Copy config files
+  - cp %GOPATH%\\src\\github.com\\EXCCoin\\exccd\\cmd\\exccctl\\sample-exccctl.conf bin/exccctl.conf
+  - cp %GOPATH%\\src\\github.com\\EXCCoin\\exccwallet\\sample-exccwallet.conf bin/exccwallet.conf
+  # Create excc-binaries archive
   - mkdir %APPVEYOR_BUILD_FOLDER%\\artifacts
   - 7z a %APPVEYOR_BUILD_FOLDER%\artifacts\excc-binaries_win64_%date:~10,4%%date:~4,2%%date:~7,2%.zip bin/*
+  # Build exilibrium
   - yarn
   - yarn package
   - dir %GOPATH%\\src\\github.com\\EXCCoin\\exilibrium\\release\\
@@ -62,9 +70,11 @@ artifacts:
 deploy:
   provider: GitHub
   tag: $(APPVEYOR_REPO_TAG_NAME)
+  # GH_TOKEN should be present in Appveyor Settings
   auth_token: '%GH_TOKEN%'
   artifact: EXCCBinaries,ExilibriumRelease
   draft: false
   prerelease: false
   on:
-    APPVEYOR_REPO_TAG: true   # deploy on tag push only
+    # Build tags only
+    APPVEYOR_REPO_TAG: true
