@@ -28,9 +28,11 @@ install:
   # Build exccd, exccctl and exccwallet
   - cd %GOPATH%\\src\\github.com\\EXCCoin\\exccd
   - dep ensure
+  - ps: '(Get-Content cequihash\solver.go).replace("#cgo", "#cgo LDFLAGS: -l  ws2_32`n#cgo") | Set-Content cequihash\solver.go'
   - go install . ./cmd/exccctl/
   - cd ../exccwallet
   - dep ensure
+  - ps: '(Get-Content vendor\github.com\EXCCoin\exccd\cequihash\solver.go).replace("#cgo", "#cgo LDFLAGS: -l  ws2_32`n#cgo") | Set-Content vendor\github.com\EXCCoin\exccd\cequihash\solver.go'
   - go install
   - cd ../exilibrium
   # Copy binaries to exilibrium
@@ -39,7 +41,7 @@ install:
   - cp %GOPATH%\\bin\\exccctl.exe bin/exccctl64.exe
   - cp %GOPATH%\\bin\\exccwallet.exe bin/exccwallet64.exe
   # Copy config files
-  - cp %GOPATH%\\src\\github.com\\EXCCoin\\exccd\\cmd\\exccctl\\sample-exccctl.conf bin/exccctl.conf
+  - cp %GOPATH%\\src\\github.com\\EXCCoin\\exccd\\cmd\\exccctl\\sample-dcrctl.conf bin/exccctl.conf
   - cp %GOPATH%\\src\\github.com\\EXCCoin\\exccwallet\\sample-exccwallet.conf bin/exccwallet.conf
   # Create excc-binaries archive
   - mkdir %APPVEYOR_BUILD_FOLDER%\\artifacts

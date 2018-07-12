@@ -7,12 +7,10 @@
 
 ## Version Information
 
-
-- version id = [v0.1.0](https://github.com/EXCCoin/excc-binaries/releases/tag/v0.1.0)
-- exccd = [acecc6e4cbd98e19a3bcbcc43486932e6df9da85](https://github.com/EXCCoin/exccd/commit/acecc6e4cbd98e19a3bcbcc43486932e6df9da85)
+- version id = [v0.2.0](https://github.com/EXCCoin/excc-binaries/releases/tag/v0.2.0)
+- exccd = [8820306d08fc43099ae34b0823609451d8fc8b20](https://github.com/EXCCoin/exccd/commit/8820306d08fc43099ae34b0823609451d8fc8b20)
 - exccwallet = [bca71a2b2d9ff836e154168b116bd2be2f158a6c](https://github.com/EXCCoin/exccwallet/commit/bca71a2b2d9ff836e154168b116bd2be2f158a6c)
-- exilibrium = [cb689a8cc2c3a6549f09b5636bffffc186813f2a](https://github.com/EXCCoin/exilibrium/commit/cb689a8cc2c3a6549f09b5636bffffc186813f2a)
-
+- exilibrium = [13bd1c1ccc9123571c2f41c40493373d2dc7e645](https://github.com/EXCCoin/exilibrium/commit/13bd1c1ccc9123571c2f41c40493373d2dc7e645)
 
 ## Repository Information
 
