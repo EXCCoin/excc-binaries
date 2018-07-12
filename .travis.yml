@@ -43,7 +43,7 @@ before_install:
   - (cd $GOPATH/src/github.com/EXCCoin/exilibrium/bin && go build -v github.com/EXCCoin/exccd/cmd/exccctl)
   - (cd $GOPATH/src/github.com/EXCCoin/exilibrium/bin && go build -v github.com/EXCCoin/exccwallet)
   # Copy config files
-  - cp $GOPATH/src/github.com/EXCCoin/exccd/cmd/exccctl/sample-exccctl.conf $GOPATH/src/github.com/EXCCoin/exilibrium/bin/exccctl.conf
+  - cp $GOPATH/src/github.com/EXCCoin/exccd/cmd/exccctl/sample-dcrctl.conf $GOPATH/src/github.com/EXCCoin/exilibrium/bin/exccctl.conf
   - cp $GOPATH/src/github.com/EXCCoin/exccwallet/sample-exccwallet.conf $GOPATH/src/github.com/EXCCoin/exilibrium/bin/exccwallet.conf
   # Create excc-binaries archive
   - (cd $GOPATH/src/github.com/EXCCoin/exilibrium/bin && tar cvzf "excc-binaries_$(echo $TRAVIS_OS_NAME)_$(date +'%Y%m%d').tar.gz" *)
