@@ -17,12 +17,12 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-6']
-      env: CC='g++-6 -fpermissive' CXX='g++-6'
+      env: CC='gcc-6 -fpermissive -Wno-error=permissive' CXX='g++-6'
 
     - os: osx
       osx_image: xcode9.4
 #      compiler: clang
-      env: CC='clang -fpermissive' CXX='clang++'
+      env: CC='clang -fpermissive -Wno-error=permissive' CXX='clang++'
 
 # Build tags only
 if: tag IS present
