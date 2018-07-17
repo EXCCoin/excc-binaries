@@ -10,7 +10,7 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-6']
-      env: CC='g++-6 -fpermissive -Wno-error=permissive' CXX='g++-6 -fpermissive -Wno-error=permissive'
+      env: CC='gcc' CXX='g++-6'
 
     - os: osx
       osx_image: xcode9.4
