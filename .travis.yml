@@ -1,9 +1,3 @@
-#os:
-# - osx
-# - linux
-
-
-
 language: go
 
 go:
@@ -12,23 +6,18 @@ go:
 matrix:
   include:
     - os: linux
-#      compiler: gcc
       addons: &gcc6
         apt:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-6']
-      env: CC='gcc-6 -fpermissive -Wno-error=permissive' CXX='g++-6'
+      env: CC='g++-6 -fpermissive -Wno-error=permissive' CXX='g++-6 -fpermissive -Wno-error=permissive'
 
     - os: osx
       osx_image: xcode9.4
-#      compiler: clang
-      env: CC='clang -fpermissive -Wno-error=permissive' CXX='clang++'
+      env: CC='clang' CXX='clang++'
 
 # Build tags only
 if: tag IS present
-
-#env:
-#  - TRAVIS_NODE_VERSION="8"
 
 deploy:
   provider: releases
