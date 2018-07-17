@@ -7,12 +7,7 @@
 
 ## Version Information
 
-
-- version id = [v0.1.0](https://github.com/EXCCoin/excc-binaries/releases/tag/v0.1.0)
-- exccd = [acecc6e4cbd98e19a3bcbcc43486932e6df9da85](https://github.com/EXCCoin/exccd/commit/acecc6e4cbd98e19a3bcbcc43486932e6df9da85)
-- exccwallet = [bca71a2b2d9ff836e154168b116bd2be2f158a6c](https://github.com/EXCCoin/exccwallet/commit/bca71a2b2d9ff836e154168b116bd2be2f158a6c)
-- exilibrium = [cb689a8cc2c3a6549f09b5636bffffc186813f2a](https://github.com/EXCCoin/exilibrium/commit/cb689a8cc2c3a6549f09b5636bffffc186813f2a)
-
+You can find components versions in [versions.json](https://github.com/EXCCoin/excc-binaries/blob/master/versions.json) file.
 
 ## Repository Information
 

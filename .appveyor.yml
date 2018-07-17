@@ -14,10 +14,12 @@ platform:
 init:
   - git config --global core.autocrlf input
   - set PATH=%GOROOT%\bin;%GOPATH%\bin;%PATH%
-  - set PATH=%PATH%;C:\msys64\mingw64\bin
+  - ps: Update-AppveyorBuild -Version "$env:APPVEYOR_REPO_TAG_NAME"
+  - set PATH=C:\msys64\mingw64\bin;%PATH%;C:\msys64\usr\bin
 
 install:
   - ps: Install-Product node 8 x64
+  - g++ --version
   - git reset --hard HEAD
   - npm install npm -g
   - go version
