@@ -1,6 +1,6 @@
-os:
- - osx
- - linux
+#os:
+# - osx
+# - linux
 
 
 
@@ -12,27 +12,17 @@ go:
 matrix:
   include:
     - os: linux
-      compiler: gcc
+#      compiler: gcc
       addons: &gcc6
         apt:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-6']
-      env: COMPILER='g++-6' BUILD_TYPE='Release'
-
-    - os: linux
-      compiler: gcc
-      addons: *gcc6
-      env: COMPILER='g++-6' BUILD_TYPE='Debug'
+      env: COMPILER='g++-6' CC='g++-6' CXX='g++-6'
 
     - os: osx
       osx_image: xcode9.4
-      compiler: clang
-      env: COMPILER='clang++' BUILD_TYPE='Debug'
-
-    - os: osx
-      osx_image: xcode9.4
-      compiler: clang
-      env: COMPILER='clang++' BUILD_TYPE='Release'
+#      compiler: clang
+      env: COMPILER='clang++ -x c++' CC='clang++ -x c++' CXX='clang++ -x c++'
 
 # Build tags only
 if: tag IS present
@@ -62,8 +52,6 @@ before_install:
   - go get -u github.com/golang/dep/cmd/dep
   # Pull all repositories
   - python before_install.py
-  - export CC=$COMPILER
-  - export CXX=$COMPILER
   # Build exccd, exccctl and exccwallet
   - (cd $GOPATH/src/github.com/EXCCoin/exccd && dep ensure -v)
   - (cd $GOPATH/src/github.com/EXCCoin/exccwallet && dep ensure -v)
