@@ -15,8 +15,7 @@ init:
   - git config --global core.autocrlf input
   - set PATH=%GOROOT%\bin;%GOPATH%\bin;%PATH%
   - ps: Update-AppveyorBuild -Version "$env:APPVEYOR_REPO_TAG_NAME"
-  - set PATH=%PATH%;C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\bin
-#  - set PATH=%PATH%;C:\msys64\mingw64\bin
+  - set PATH=%PATH%;C:\msys64\mingw64\bin
 
 install:
   - ps: Install-Product node 8 x64
