@@ -1,5 +1,5 @@
 # Version does not matter, it will be overwritten anyway with the tag name
-version: {build}
+version: 0.{build}
 
 skip_non_tags: true
 
