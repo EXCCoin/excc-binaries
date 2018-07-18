@@ -1,4 +1,5 @@
-version: 0.1.{build}
+# Version does not matter, it will be overwritten anyway with the tag name
+version: {build}
 
 skip_non_tags: true
 
@@ -16,6 +17,7 @@ init:
   - set PATH=%GOROOT%\bin;%GOPATH%\bin;%PATH%
   - ps: Update-AppveyorBuild -Version "$env:APPVEYOR_REPO_TAG_NAME"
   - set PATH=C:\msys64\mingw64\bin;%PATH%;C:\msys64\usr\bin
+  - set CGO_LDFLAGS=-g -O2 -static -static-libgcc -static-libstdc++
 
 install:
   - ps: Install-Product node 8 x64
