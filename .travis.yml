@@ -10,11 +10,11 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test']
           packages: ['g++-7']
-      env: CC='gcc-7' CXX='g++-7' TRAVIS_NODE_VERSION='8'
+      env: CC='gcc-7 -march=core7i' CXX='g++-7 -march=core7i' TRAVIS_NODE_VERSION='8'
 
     - os: osx
       osx_image: xcode9.4
-      env: CC='clang -march=core7i' CXX='clang++ -march=core7i' TRAVIS_NODE_VERSION='8'
+      env: CC='clang' CXX='clang++' TRAVIS_NODE_VERSION='8'
 
 # Build tags only
 if: tag IS present
