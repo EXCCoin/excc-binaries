@@ -11,6 +11,6 @@ You can find components versions in [versions.json](https://github.com/EXCCoin/e
 
 ## Repository Information
 
-- exccd = https://github.com/EXCCoin/exccd
-- exccwallet = https://github.com/EXCCoin/exccwallet
-- exilibrium = https://github.com/EXCCoin/exilibrium
+- [exccd](https://github.com/EXCCoin/exccd)
+- [exccwallet](https://github.com/EXCCoin/exccwallet)
+- [exilibrium](https://github.com/EXCCoin/exilibrium)
