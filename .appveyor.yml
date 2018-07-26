@@ -3,6 +3,12 @@ version: 0.{build}
 
 skip_non_tags: true
 
+clone_depth: 15
+
+environment:
+  GOPATH: C:\gopath
+  GOROOT: C:\go
+
 cache:
   - node_modules
   - app\node_modules
@@ -38,15 +44,12 @@ install:
   - go install
   - cd ../exilibrium
   # Copy binaries to exilibrium
-  - mkdir bin
+  - if not exist bin mkdir bin
   - cp %GOPATH%\\bin\\exccd.exe bin/exccd64.exe
   - cp %GOPATH%\\bin\\exccctl.exe bin/exccctl64.exe
   - cp %GOPATH%\\bin\\exccwallet.exe bin/exccwallet64.exe
-  # Copy config files
-  - cp %GOPATH%\\src\\github.com\\EXCCoin\\exccd\\cmd\\exccctl\\sample-exccctl.conf bin/exccctl.conf
-  - cp %GOPATH%\\src\\github.com\\EXCCoin\\exccwallet\\sample-exccwallet.conf bin/exccwallet.conf
   # Create excc-binaries archive
-  - mkdir %APPVEYOR_BUILD_FOLDER%\\artifacts
+  - if not exist %APPVEYOR_BUILD_FOLDER%\\artifacts mkdir %APPVEYOR_BUILD_FOLDER%\\artifacts
   - 7z a %APPVEYOR_BUILD_FOLDER%\artifacts\excc-binaries_win64_%date:~10,4%%date:~4,2%%date:~7,2%.zip bin/*
   # Build exilibrium
   - yarn
@@ -58,10 +61,6 @@ build_script:
   - echo "Hooray!"
 
 test: off
-
-environment:
-  GOPATH: c:\gopath
-  GOROOT: C:\go
 
 artifacts:
   - path: '.\artifacts\*.zip'
