@@ -1,13 +1,13 @@
 # Version does not matter, it will be overwritten anyway with the tag name
 version: 0.{build}
-
 skip_non_tags: true
-
 clone_depth: 15
 
 environment:
   GOPATH: C:\gopath
   GOROOT: C:\go
+  GH_TOKEN:
+    secure: zkRfj38vtjpl4e3+3l9Lovna+1cQ4/SFBNY6xwhf35j3RDCaTVHmu8M9brnYDRZ8
 
 cache:
   - node_modules
@@ -73,7 +73,6 @@ artifacts:
 deploy:
   provider: GitHub
   tag: $(APPVEYOR_REPO_TAG_NAME)
-  # GH_TOKEN should be present in Appveyor Settings
   auth_token: '%GH_TOKEN%'
   artifact: EXCCBinaries,ExilibriumRelease
   draft: false
