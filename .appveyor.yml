@@ -4,6 +4,7 @@ skip_non_tags: true
 clone_depth: 15
 
 environment:
+  nodejs_version: 8.14.0
   GOPATH: C:\gopath
   GOROOT: C:\go
   GH_TOKEN:
@@ -26,7 +27,7 @@ init:
   - set CGO_LDFLAGS=-g -O2 -static -static-libgcc -static-libstdc++
 
 install:
-  - ps: Install-Product node 8 x64
+  - ps: Install-Product node $env:nodejs_version x64
   - g++ --version
   - git reset --hard HEAD
   - npm install npm -g
@@ -73,7 +74,7 @@ artifacts:
 deploy:
   provider: GitHub
   tag: $(APPVEYOR_REPO_TAG_NAME)
-  auth_token: '%GH_TOKEN%'
+  auth_token: "%GH_TOKEN%"
   artifact: EXCCBinaries,ExilibriumRelease
   draft: false
   prerelease: false
