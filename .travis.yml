@@ -8,13 +8,13 @@ matrix:
     - os: linux
       addons: &gcc6
         apt:
-          sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-6']
-      env: CC='gcc' CXX='g++-6' TRAVIS_NODE_VERSION='8'
+          sources: ["ubuntu-toolchain-r-test"]
+          packages: ["g++-6", "rpm"]
+      env: CC='gcc' CXX='g++-6' TRAVIS_NODE_VERSION='8.14.0'
 
     - os: osx
       osx_image: xcode9.4
-      env: CC='clang' CXX='clang++' TRAVIS_NODE_VERSION='8'
+      env: CC='clang' CXX='clang++' TRAVIS_NODE_VERSION='8.14.0'
 
 # Build tags only
 if: tag IS present
