@@ -1,0 +1,111 @@
+name: Build and Release
+on: [push, pull_request]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.19
+    - name: Use nodejs ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Use python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Install python requests package
+      run: python -m pip install requests
+    - name: Build Linux packages
+      run: python build-release.py
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        draft: true
+        files: |
+          artifacts/*
+      if: startsWith(github.ref, 'refs/tags/')
+
+  build-windows:
+    runs-on: windows-latest
+    env:
+      WINDOWS_CSC_LINK: "windows-csc-link"
+      WINDOWS_CSC_KEY_PASSWORD: "windows-csc-key-password"
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.19
+    - name: Use nodejs ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Use python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Install python requests package
+      run: python -m pip install requests
+    - name: Build Windows packages
+      run: python build-release.py
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        draft: true
+        files: |
+          artifacts/*
+      if: startsWith(github.ref, 'refs/tags/')
+
+  build-macos:
+    runs-on: macos-latest
+    env:
+      MACOS_ARCHITECTURE: "amd64"
+      MACOS_IDENTITY: "macos-identity"
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.19
+    - name: Use nodejs ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Use python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Install python requests package
+      run: python -m pip install requests
+    - name: Build MacOS X packages
+      run: python build-release.py
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        draft: true
+        files: |
+          artifacts/*
+      if: startsWith(github.ref, 'refs/tags/')
