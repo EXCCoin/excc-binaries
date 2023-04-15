@@ -77,7 +77,7 @@ jobs:
     runs-on: macos-latest
     env:
       MACOS_ARCHITECTURE: "amd64"
-      MACOS_IDENTITY: "macos-identity"
+      MACOS_IDENTITY: "false"
     strategy:
       matrix:
         node-version: [14.x]
