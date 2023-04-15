@@ -65,13 +65,16 @@ def download_latest_release(repository):
             archive_path = os.path.join(WORK_DIR, 'repository.zip')
             with open(archive_path, 'wb') as fd:
                 fd.write(r.content)
-                shutil.unpack_archive(archive_path, WORK_DIR)
-                os.remove(archive_path)
-                return
+            shutil.unpack_archive(archive_path, WORK_DIR)
+            os.remove(archive_path)
+            return
         except Exception:
             log.warning(f'Downloading {repository} failed. Waiting 8 sec before retry...')
             time.sleep(8)
             pass
+
+    log.error(f'Failed to download {repository}.')
+    sys.exit(1)
 
 
 def build_go_app(app_name, dst_path):
@@ -111,14 +114,10 @@ if __name__ == '__main__':
     os.chdir(WORK_DIR)
     setup()
 
-    for i in range(5):
-        log.info('Downloading exilibirum')
-        download_latest_release('exilibrium')
-        exilibirum_dir = get_src_dir_path('exilibrium')
-        if exilibirum_dir is not False:
-            break
-        time.sleep(2)
+    log.info('Downloading exilibirum')
+    download_latest_release('exilibrium')
 
+    exilibirum_dir = get_src_dir_path('exilibrium')
     exilibrium_bin_dir = os.path.join(exilibirum_dir, 'bin')
     if not os.path.exists(exilibrium_bin_dir):
         os.mkdir(exilibrium_bin_dir)
