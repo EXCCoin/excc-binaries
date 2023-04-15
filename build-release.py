@@ -13,6 +13,7 @@ ARTIFACTS_DIR = os.path.join(WORK_DIR, 'artifacts')
 BIN_DIR = os.path.join(WORK_DIR, 'bin')
 HTTP = requests.Session()
 
+
 def system(cmd):
     res = os.system(cmd)
     if res != 0:
@@ -72,6 +73,7 @@ def download_latest_release(repository):
             time.sleep(8)
             pass
 
+
 def build_go_app(app_name, dst_path):
     src_dir = get_src_dir_path(app_name)
     os.chdir(src_dir)
@@ -80,7 +82,10 @@ def build_go_app(app_name, dst_path):
     else:
         system('go build -ldflags="-s -w -extldflags -static"')
     artifact_path = os.path.join(src_dir, get_executable_name(app_name))
-    shutil.copyfile(artifact_path, os.path.join(dst_path, get_executable_name(app_name)))
+    dst_file_path = os.path.join(dst_path, get_executable_name(app_name))
+    shutil.copyfile(artifact_path, dst_file_path)
+    if not is_windows():
+        os.chmod(dst_file_path, 0o755)
     os.chdir(WORK_DIR)
 
 
@@ -93,6 +98,7 @@ def setup():
         os.mkdir(ARTIFACTS_DIR)
     if not os.path.exists(BIN_DIR):
         os.mkdir(BIN_DIR)
+
 
 if __name__ == '__main__':
     log.basicConfig(level=log.DEBUG)
