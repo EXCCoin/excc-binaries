@@ -76,7 +76,7 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
 
   build-macos:
-    runs-on: macos-latest
+    runs-on: macos-11
     env:
       MACOS_ARCHITECTURE: "amd64"
       MACOS_IDENTITY: "false"
