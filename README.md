@@ -1,10 +1,17 @@
-# EXCC Binaries
+# EXCC Binaries (archived)
 
-[![Build status](https://github.com/EXCCoin/excc-binaries/actions/workflows/build.yml/badge.svg)](https://github.com/EXCCoin/exccdata/actions)
+> [!IMPORTANT]
+> This repository contains historical combined releases and is no longer updated.
+> Do not use its `releases/latest` endpoint to find current EXCC software.
+>
+> Current releases:
+> - [exccd](https://github.com/EXCCoin/exccd/releases)
+> - [exccwallet](https://github.com/EXCCoin/exccwallet/releases)
+> - [exccctl](https://github.com/EXCCoin/exccctl/releases)
+>
+> Exilibrium has been retired and is being replaced by Excilium.
 
-ExchangeCoin Binary Releases
-
-## Available Releases
+## Historical Releases
 
 This repository contains releases for the following software:
 
@@ -13,9 +20,9 @@ This repository contains releases for the following software:
 - [exccctl](https://github.com/EXCCoin/exccctl)
 - [exilibrium](https://github.com/EXCCoin/exilibrium)
 
-## Latest Release
+## Last Combined Release
 
-[Latest Release](https://github.com/EXCCoin/excc-binaries/releases/latest)
+[v2.0.8](https://github.com/EXCCoin/excc-binaries/releases/tag/v2.0.8)
 
 ## Verifying Binaries
 
@@ -75,5 +82,4 @@ If the output hash aligns with the hash present in the manifest, the verificatio
 
 ## Source code
 
-Please note that this repository solely comprises build archives, build scripts, and related content. To access the source code, kindly refer to the individual repositories located at:
-at: https://github.com/EXCCoin/
+Please note that this repository solely comprises build archives, build scripts, and related content. Source code is available from the [EXCCoin organization](https://github.com/EXCCoin/).
